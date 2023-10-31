@@ -1,7 +1,7 @@
 FUNCTIONS_SCHEMA = [
     {
         "name": "get_search_results",
-        "description": "Used to get search results when the user asks for it",
+        "description": "Used to get search results when the user asks for it in 15 words",
         "parameters": {
             "type": "object",
             "properties": {
@@ -114,20 +114,6 @@ FUNCTIONS_SCHEMA = [
                     "required": ["sys_id", "comments"],
                 },
             },
-
-            {
-        "name": "get_access_token",
-        "description": "Used to get access token when the user asks for it",
-        "parameters": {
-            "type": "object",
-            "properties": {
-                "query": {
-                    "type": "string",
-                    "description": "The query to search for",
-                }
-            },
-        },
-    },
             {
     "name": "send_email_via_graph_api",
     "description": "Send an email via the Microsoft Graph API",
@@ -151,9 +137,115 @@ FUNCTIONS_SCHEMA = [
                 "description": "The body/content of the email."
             }
         },
-        "required": ["access_token", "recipient_email", "subject", "message_body"]
+        "required": ["recipient_email", "subject", "message_body"]
     }
 },
+
+{
+    "name": "schedule_meeting_via_graph_api",
+    "description": "Schedule a meeting via the Microsoft Graph API",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "access_token": {
+                "type": "string",
+                "description": "The Microsoft Graph API access token for authentication."
+            },
+            "recipient_email": {
+                "type": "string",
+                "description": "The email address of the meeting recipient."
+            },
+            "subject": {
+                "type": "string",
+                "description": "The subject of the meeting."
+            },
+            "start_time": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The start time of the meeting in ISO 8601 format."
+            },
+            "end_time": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The end time of the meeting in ISO 8601 format."
+            },
+            "location": {
+                "type": "string",
+                "description": "The location of the meeting."
+            }
+        },
+        "required": ["recipient_email", "subject", "start_time", "end_time", "location"]
+    }
+},
+{
+    "name": "cancel_meeting_by_name_via_graph_api",
+    "description": "Cancel a meeting by its name via the Microsoft Graph API",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "meeting_name": {
+                "type": "string",
+                "description": "The name of the meeting to be canceled."
+            }
+        },
+        "required": ["meeting_name"]
+    }
+},
+# {
+#     "name": "get_free_time_slots",
+#     "description": "get free time slots by its email via the Microsoft Graph API",
+#     "parameters": {
+#         "type": "object",
+#         "properties": {
+#             "user_email": {
+#                 "type": "string",
+#                 "description": "The email of the user"
+#             }
+#         },
+#         "required": ["user_email"]
+#     }
+# },
+
+{
+    "name": "get_events",
+    "description": "Retrieve events (meetings) from the Microsoft Graph API",
+    "parameters": {
+        "type": "object",
+        "properties": {}
+    }
+},
+
+{
+    "name": "find_free_meeting_times",
+    "description": "Find meeting times using the Microsoft Graph API, if asked for today get the current date and time from get_search_results",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "participants": {
+                "type": "array",
+                "items": {
+                    "type": "string",
+                    "description": "Email addresses of meeting participants."
+                },
+                "description": "An array of email addresses of meeting participants."
+            },
+            "start_time": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The start time of the meeting in ISO 8601 format (UTC)."
+            },
+            "end_time": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The end time of the meeting in ISO 8601 format (UTC)."
+            }
+        },
+        "required": [ "participants", "start_time", "end_time"]
+    }
+}
+
+
+
 
 
     

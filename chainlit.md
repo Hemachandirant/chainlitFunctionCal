@@ -1,2 +1,1 @@
-# Streaming chatbot with OpenAI functions
-
+# Streaming IVA with Google Knowledge graph
