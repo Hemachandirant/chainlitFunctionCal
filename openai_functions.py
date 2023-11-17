@@ -90,7 +90,7 @@ class OpenAIFunctions:
     def service_now_ticket_creation(short_description, description):
         """Create a new servicenow ticket"""
 
-        auth = HTTPBasicAuth("adarsh.talinki@wipro.com", "Demo@1234")
+        auth = HTTPBasicAuth("", "")
 
         uri = "https://wiprodemo4.service-now.com/api/now/table/incident?sysparm_display_value=true"
 
@@ -113,7 +113,7 @@ class OpenAIFunctions:
     
     @staticmethod
     def get_incident_status_by_number(incident_number):
-        auth = HTTPBasicAuth("adarsh.talinki@wipro.com", "Demo@1234")
+        auth = HTTPBasicAuth("", "")
 
         uri = f"https://wiprodemo4.service-now.com/api/now/table/incident?sysparm_query=numberLIKE{incident_number}^ORDERBYDESCsys_created_on&sysparm_display_value=true"
 
@@ -129,7 +129,7 @@ class OpenAIFunctions:
         return json.dumps(content)
     @staticmethod
     def get_recent_incidents_status(number_of_incidents):
-        auth = HTTPBasicAuth("adarsh.talinki@wipro.com", "Demo@1234")
+        auth = HTTPBasicAuth("", "")
 
         uri = f"https://wiprodemo4.service-now.com/api/now/table/incident?sysparm_query=sys_created_bySTARTSWITHadarsh^ORDERBYDESCsys_updated_on^active=true&sysparm_limit={number_of_incidents}"
         headers = {
@@ -182,7 +182,7 @@ class OpenAIFunctions:
             description = content.get("result", {}).get("description")
             sys_id = content.get("result", {}).get("sys_id")
 
-            auth = HTTPBasicAuth("adarsh.talinki@wipro.com", "Demo@1234")
+            auth = HTTPBasicAuth("", "")
             uri = f"https://wiprodemo4.service-now.com/api/now/table/incident/{sys_id}?sysparm_display_value=true"
             headers = {
                 "Accept": "application/json;charset=utf-8",
